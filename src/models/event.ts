@@ -1,13 +1,12 @@
 import mongoose from 'mongoose';
-import { Password } from '../services/password';
+import {EventKind} from "../enums/event-kind";
 
 // An interface that describes the properties
 // that are requried to create a new User
 interface EventAttrs {
-  id: string;
   name: string;
-  startedAt: Date;
-  endedAt?: Date;
+  date: Date;
+  kind: EventKind;
   challengersIds: string[];
 }
 
@@ -22,8 +21,8 @@ interface EventModel extends mongoose.Model<EventDoc> {
 interface EventDoc extends mongoose.Document {
   id: string;
   name: string;
-  startedAt: Date;
-  endedAt?: Date;
+  date: Date;
+  kind: EventKind;
   challengersIds: string[];
 }
 
@@ -33,15 +32,25 @@ const eventSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    startedAt: {
-      type: String,
+    date: {
+      type: Date,
       required: true
+    },
+    challengersIds: {
+      type: [],
+      required: true,
+    },
+    kind: {
+      type: Number,
+      required: true,
     }
   },
   {
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
       }
     }
   }
