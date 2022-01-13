@@ -9,6 +9,8 @@ import { signoutRouter } from './routes/signout';
 import { signupRouter } from './routes/signup';
 import { errorHandler } from './middlewares/error-handler';
 import { NotFoundError } from './errors/not-found-error';
+import {eventsRouter} from "./routes/events";
+import {leaguesRouter} from "./routes/leagues";
 
 const app = express();
 app.set('trust proxy', true);
@@ -24,6 +26,8 @@ app.use(currentUserRouter);
 app.use(signinRouter);
 app.use(signoutRouter);
 app.use(signupRouter);
+app.use(eventsRouter);
+app.use(leaguesRouter);
 
 app.all('*', async (req, res) => {
   throw new NotFoundError();
