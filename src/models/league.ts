@@ -1,10 +1,8 @@
 import mongoose from 'mongoose';
-import { Password } from '../services/password';
 
 // An interface that describes the properties
 // that are requried to create a new User
 interface LeagueAttrs {
-  id: string;
   name: string;
   startedAt: Date;
   endedAt?: Date;
@@ -34,14 +32,20 @@ const leagueSchema = new mongoose.Schema(
       required: true
     },
     startedAt: {
-      type: String,
+      type: Date,
       required: true
+    },
+    challengersIds: {
+      type: [],
+      required: true,
     }
   },
   {
     toJSON: {
       transform(doc, ret) {
         ret.id = ret._id;
+        delete ret._id;
+        delete ret.__v;
       }
     }
   }
