@@ -1,0 +1,176 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Swagger FFBP",
+    "description": "FFBP Api with the swagger-2.0 specification",
+    "termsOfService": "http://swagger.io/terms/",
+    "contact": {
+      "name": "Swagger API Team"
+    },
+    "license": {
+      "name": "MIT"
+    }
+  },
+  "host": "ffbp.swagger.io",
+  "basePath": "/api",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/events": {
+      "post": {
+        "description": "Creates a new event in the store. Duplicates are allowed",
+        "operationId": "addEvent",
+        "parameters": [
+          {
+            "name": "event",
+            "in": "body",
+            "description": "Event to add to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "event response",
+            "schema": {
+              "$ref": "#/definitions/Event"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/leagues": {
+      "post": {
+        "description": "Creates a new league in the store. Duplicates are allowed",
+        "operationId": "addLeague",
+        "parameters": [
+          {
+            "name": "league",
+            "in": "body",
+            "description": "League to add to the store",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/League"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "league response",
+            "schema": {
+              "$ref": "#/definitions/League"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Event": {
+      "type": "object",
+      "required": [
+        "name",
+        "date",
+        "challengersIds",
+        "kind"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "date": {
+          "type": "object"
+        },
+        "challengersIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "kind": {
+          "type": "integer"
+        }
+      }
+    },
+    "League": {
+      "type": "object",
+      "required": [
+        "name",
+        "startedAt",
+        "challengersIds"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "startedAt": {
+          "type": "object"
+        },
+        "challengersIds": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "User": {
+      "type": "object",
+      "required": [
+        "email"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        }
+      }
+    },
+    "Error": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
