@@ -26,7 +26,7 @@
   "paths": {
     "/events": {
       "post": {
-        "description": "Creates a new event in the store. Duplicates are allowed",
+        "description": "Creates a new event in the store. Duplicates are allowed.",
         "operationId": "addEvent",
         "parameters": [
           {
@@ -57,7 +57,7 @@
     },
     "/leagues": {
       "post": {
-        "description": "Creates a new league in the store. Duplicates are allowed",
+        "description": "Creates a new league in the store. Duplicates are allowed.",
         "operationId": "addLeague",
         "parameters": [
           {
@@ -75,6 +75,95 @@
             "description": "league response",
             "schema": {
               "$ref": "#/definitions/League"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/signin": {
+      "post": {
+        "description": "Sign in user. Return a JWT.",
+        "operationId": "signInUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "user's email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "user's password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "signIn response",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/signout": {
+      "post": {
+        "description": "Sign out user.",
+        "operationId": "signOutUser",
+        "responses": {
+          "201": {
+            "description": "signOut response"
+          },
+          "default": {
+            "description": "unexpected error",
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/users/signup": {
+      "post": {
+        "description": "Creates a new user in the store. Duplicates on email are not allowed.",
+        "operationId": "signUpUser",
+        "parameters": [
+          {
+            "name": "email",
+            "in": "formData",
+            "description": "user's email",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "in": "formData",
+            "description": "user's password",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "signUp response",
+            "schema": {
+              "$ref": "#/definitions/User"
             }
           },
           "default": {
